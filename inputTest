@@ -1,0 +1,19 @@
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class inputTest {
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+
+        //获取第一行输入
+        System.out.println("What is your name?");
+        String name = in.nextLine();
+
+        //获取第二次输入
+        System.out.println("How old are you?");
+        int age = in.nextInt();
+
+        //显示输入的信息
+        System.out.println("Hello," + name + ".Next year,you will be " + (age + 1));
+    }
+}
