@@ -1,0 +1,57 @@
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+
+public class imageViewer {
+    public static void main(String[] argd){
+        EventQueue.invokeLater(() ->{
+            JFrame frame = new imageViewerFrame();
+            frame.setTitle("ImageViewer");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+        });
+    }
+}
+    class imageViewerFrame extends JFrame{
+        private JLabel label;
+        private JFileChooser chooser;
+        private static final int DEFAULT_WIDTH = 300;
+        private static final int DEFAULT_HEIGHT = 400;
+
+        public imageViewerFrame(){
+            setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
+
+            //用一个标签显示图像
+            label = new JLabel();
+            add(label);
+
+            //创建文件选项
+            chooser = new JFileChooser();
+            chooser.setCurrentDirectory(new File("."));
+
+            //创建菜单栏
+            JMenuBar menuBar = new JMenuBar();
+            setJMenuBar(menuBar);
+
+            JMenu menu = new JMenu("File");
+            menuBar.add(menu);
+
+            JMenuItem openItem = new JMenuItem("Open");
+            menu.add(openItem);
+            openItem.addActionListener(event ->{
+                //显示文件选择日志
+                int result = chooser.showOpenDialog(null);
+
+                //如果选择文件，则将其设置为标签的图标
+                if (result == JFileChooser.APPROVE_OPTION){
+                    String name = chooser.getSelectedFile().getPath();
+                    label.setIcon(new ImageIcon(name));
+                }
+            });
+
+            JMenuItem exitItem = new JMenuItem("Exit");
+            menu.add(exitItem);
+            exitItem.addActionListener(event ->System.exit(0));
+        }
+    }
+
